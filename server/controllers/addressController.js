@@ -8,7 +8,7 @@ import Address from "../models/Address.js"
 //-------------------------------------------add address to the database----------------------------------------------//
 
 // Add Address : /api/address/add
-export const addAddress = async()=>{
+export const addAddress = async(req, res)=>{
     try {
         const {address, userId} = req.body //gets the address data, and userId from the request body
         await Address.create({...address, userId})// saves the data to the database
@@ -27,9 +27,9 @@ export const addAddress = async()=>{
 //-----------------------------------------get address from the database----------------------------------------------//
 
 //Get Address: /api/address/get
-export const getAddress = async()=>{
+export const getAddress = async(req, res)=>{
     try {
-        const { userId} = req.body //(problem) //get userid from the request
+        const { userId} = req.body  //get userid from the request
         const addresses =  await Address.find({userId}) // find the addresses using the userId
         res.json({success: true, addresses})
     } catch (error) {

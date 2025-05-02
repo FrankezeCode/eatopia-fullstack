@@ -1,8 +1,9 @@
 import React from 'react'
 import { useAppContext } from '../context/AppContext';
+import toast from 'react-hot-toast';
 
 const Login = () => {
-    const {setShowUserLogin, setUser} = useAppContext()
+    const {setShowUserLogin, setUser, axios , navigate} = useAppContext()
 
     const [state, setState] = React.useState("login");
     const [name, setName] = React.useState("");
@@ -10,12 +11,21 @@ const Login = () => {
     const [password, setPassword] = React.useState("");
 
     const  onSubmitHandler = async (event)=>{
-         event.preventDefault();
-         setUser({
-            email: "test@dev.com",
-            password: "abc12345"
-         })
-         setShowUserLogin(false)
+        try {
+            event.preventDefault();
+            const {data} = await axios.post(`/api/user/${state}`, {name, email, password})
+            if(data.success){
+                navigate('/');
+                setUser(data.user);
+                setShowUserLogin(false);
+            }else{
+                toast.error(data.message)
+            }
+            
+        } catch (error) {
+            toast.error(error.message)
+        }
+         
     }
 
 
@@ -31,6 +41,7 @@ const Login = () => {
                     <input onChange={(e) => setName(e.target.value)} value={name} placeholder="type here" className="border border-gray-200 rounded w-full p-2 mt-1 outline-primary" type="text" required />
                 </div>
             )}
+
             <div className="w-full ">
                 <p>Email</p>
                 <input onChange={(e) => setEmail(e.target.value)} value={email} placeholder="type here" className="border border-gray-200 rounded w-full p-2 mt-1 outline-primary" type="email" required />
@@ -39,6 +50,7 @@ const Login = () => {
                 <p>Password</p>
                 <input onChange={(e) => setPassword(e.target.value)} value={password} placeholder="type here" className="border border-gray-200 rounded w-full p-2 mt-1 outline-primary" type="password" required />
             </div>
+
             {state === "register" ? (
                 <p>
                     Already have account? <span onClick={() => setState("login")} className="text-primary cursor-pointer">click here</span>

@@ -86,7 +86,7 @@ export const  productById = async (req, res) =>{
 // Change product inStock: /api/product/stock
 export const  changeStock = async (req, res) =>{
     try {
-        const {id, inStock} = req.body  //get the id and instock from the body(problem)
+        const {id, inStock} = req.body  //get the id and instock from the body
 
         await Product.findByIdAndUpdate(id, {inStock}) // find and update instock of a product in mongodb database
 
