@@ -16,8 +16,8 @@ export const sellerLogin =  async(req, res) =>{
            //Sets a cookie named 'token' with the JWT.
             res.cookie('sellerToken', token, {
             httpOnly: true, // Prevent javascript to access cookie (helps prevent XSS attacks)
-            secure: process.env.NODE_ENV === "production", // Use secure cookies in production
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "strict", // CSRF protection
+            secure: true, // Use secure cookies in production
+            sameSite: "none", // CSRF protection
             maxAge: 7 * 24 * 60 * 60 * 1000, // cookie expirationtime => 7days(the time is in milliseconds)
              })
 
