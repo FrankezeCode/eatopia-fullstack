@@ -12,6 +12,8 @@ import addressRouter from "./routes/addressRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 import { stripeWebhooks } from "./controllers/orderController.js";
 
+
+
 const app = express();
 const port = process.env.PORT || 4000
 
@@ -22,7 +24,7 @@ await connectCloudinary();
 // Allow multiple origins
 const allowedOrigins = ["http://localhost:5173"]
 
-// stripe webhook api
+// stripe webhook route (must come before express.json())
 app.post('/stripe' , express.raw({type: 'application/json'}), stripeWebhooks)
 
 
@@ -41,6 +43,11 @@ app.use('/api/address', addressRouter);
 app.use('/api/order', orderRouter);
 
 
+
 app.listen(port, ()=>{
     console.log(`Serving running on http://localhost:${port}`)
 })
+
+
+
+
