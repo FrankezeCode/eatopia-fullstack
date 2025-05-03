@@ -41,8 +41,8 @@ export const register = async (req , res)=>{
         //Sets a cookie named 'token' with the JWT.
         res.cookie('token', token, {
             httpOnly: true, // Prevent javascript to access cookie (helps prevent XSS attacks)
-            secure: process.env.NODE_ENV === "production", // Use secure cookies in production
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "strict", // CSRF protection
+            secure: true, // Use secure cookies in production
+            sameSite: "none", // CSRF protection
             maxAge: 7 * 24 * 60 * 60 * 1000, // cookie expirationtime => 7days(the time is in milliseconds)
         })
         
@@ -102,8 +102,8 @@ export const login = async(req , res)=>{
         //Sets a cookie named 'token' with the JWT.
         res.cookie('token', token, {
             httpOnly: true, // Prevent javascript to access cookie (helps prevent XSS attacks)
-            secure: process.env.NODE_ENV === "production", // Use secure cookies in production
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "strict", // CSRF protection
+            secure: true, // Use secure cookies in production
+            sameSite: "none" , // CSRF protection
             maxAge: 7 * 24 * 60 * 60 * 1000, // cookie expirationtime => 7days(the time is in milliseconds)
         })
         
@@ -161,8 +161,8 @@ export const logout = async (req, res)=>{
     try {
         res.clearCookie('token', {
             httpOnly: true, // Prevent javascript to access cookie (helps prevent XSS attacks)
-            secure: process.env.NODE_ENV === "production", // Use secure cookies in production
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "strict", // CSRF protection
+            secure: true, // Use secure cookies in production
+            sameSite: "none", // CSRF protection
         })
         return res.json({success: true, message: "Logged Out"})
     } catch (error) {
