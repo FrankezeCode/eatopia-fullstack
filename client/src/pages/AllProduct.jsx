@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useAppContext } from '../context/AppContext'
 import ProductCard from '../components/ProductCard';
+import SearchBar from '../components/SearchBar';
 
 
 const AllProduct = () => {
@@ -20,17 +21,22 @@ const AllProduct = () => {
   },[products, searchQuery]);
 
   return (
-    <div className='mt-16 flex flex-col'>
-       <div className='flex flex-col items-end w-max'>
-         <p className='text-2xl font-medium uppercase'>All Products</p>
-         <div className='w-16 h-0.5 bg-primary rounded-full'></div>
-       </div> 
+    <div>
+      <div className=' hidden max-md:flex justify-center'>
+        <SearchBar />
+      </div>
+      <div className='mt-16 flex flex-col'>
+        <div className='flex flex-col items-end  max-md:items-center md:w-max'>
+          <p className='text-2xl font-medium uppercase'>All Products</p>
+          <div className='w-16 h-0.5 bg-primary rounded-full'></div>
+        </div>
 
-       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-6  mt-6'>
-        {filterProducts.filter((product)=> product.inStock).map((product, index)=>(
-            <ProductCard key={index} product={product}/>
-        ))}
-       </div>
+        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-6  mt-6 max-md:grid-cols-1 max-md:place-items-center'>
+          {filterProducts.filter((product) => product.inStock).map((product, index) => (
+            <ProductCard key={index} product={product} />
+          ))}
+        </div>
+      </div>
     </div>
   )
 }
